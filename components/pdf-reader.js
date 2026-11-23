@@ -17,7 +17,7 @@ function outlineEntries(items, prefix = "pdf") {
 export function usePdfReader(book, callbacks, navigation) {
   const [source, setSource] = useState(null);
   const { onError, onOutline, onPosition } = callbacks;
-  const { controls, position, spread, getInitialPosition } = navigation;
+  const { controls, position, spread, getInitialPosition, outlineOpen } = navigation;
   const activePage = position?.page ?? 1;
   const fileUrl = ebookFileUrl(book);
 
@@ -46,9 +46,6 @@ export function usePdfReader(book, callbacks, navigation) {
         const initialPage = Number(getInitialPosition()?.page) || 1;
         const page = Math.max(1, Math.min(pdf.numPages, initialPage));
         onPosition({ page, total: pdf.numPages, percent: page / pdf.numPages * 100 });
-        pdf.getOutline().then((items) => {
-          if (!cancelled) onOutline(outlineEntries(items));
-        }).catch(() => {});
       } catch (error) {
         if (!cancelled) {
           console.error(error);
@@ -62,7 +59,18 @@ export function usePdfReader(book, callbacks, navigation) {
       cancelled = true;
       loading?.destroy().catch(() => {});
     };
-  }, [book.format, fileUrl, getInitialPosition, onError, onOutline, onPosition]);
+  }, [book.format, fileUrl, getInitialPosition, onError, onPosition]);
+
+  useEffect(() => {
+    if (!source || !outlineOpen) return;
+    let cancelled = false;
+    source.pdf.getOutline().then((items) => {
+      if (!cancelled) onOutline(outlineEntries(items));
+    }).catch(() => {
+      if (!cancelled) onOutline([]);
+    });
+    return () => { cancelled = true; };
+  }, [source, outlineOpen, onOutline]);
 
   useEffect(() => {
     if (!source) return;
@@ -92,7 +100,7 @@ export function usePdfReader(book, callbacks, navigation) {
   return source;
 }
 
-function PdfPage({ source, pageNumber, width, onError }) {
+function PdfPage({ source, pageNumber, width, onError, onReady }) {
   const container = useRef(null);
   const canvas = useRef(null);
   const text = useRef(null);
@@ -126,6 +134,7 @@ function PdfPage({ source, pageNumber, width, onError }) {
         await drawing.promise;
         if (cancelled) return;
         setRendered(true);
+        onReady?.();
         textElement.replaceChildren();
         textLayer = new source.engine.TextLayer({
           textContentSource: page.streamTextContent(),
@@ -146,7 +155,7 @@ function PdfPage({ source, pageNumber, width, onError }) {
       drawing?.cancel();
       textLayer?.cancel();
     };
-  }, [onError, pageNumber, source, width]);
+  }, [onError, onReady, pageNumber, source, width]);
 
   return (
     <div className={`pdf-page${rendered ? " rendered" : ""}`} ref={container} style={{ width }}>
@@ -156,7 +165,7 @@ function PdfPage({ source, pageNumber, width, onError }) {
   );
 }
 
-export function PdfPages({ source, page, spread, width, onError, scrollArea }) {
+export function PdfPages({ source, page, spread, width, onError, onPageReady, scrollArea }) {
   const scrollPosition = useRef(page);
 
   useEffect(() => {
@@ -168,7 +177,7 @@ export function PdfPages({ source, page, spread, width, onError, scrollArea }) {
   const hasFacingPage = spread && page < source.pdf.numPages;
   return (
     <div className={`pdf-book${hasFacingPage ? " double-page" : ""}`} key={page}>
-      <PdfPage source={source} pageNumber={page} width={width} onError={onError} />
+      <PdfPage source={source} pageNumber={page} width={width} onError={onError} onReady={onPageReady} />
       {hasFacingPage && <PdfPage source={source} pageNumber={page + 1} width={width} onError={onError} />}
     </div>
   );

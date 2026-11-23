@@ -92,12 +92,13 @@ export default function EpubReader({
 
     async function openEpub() {
       try {
-        const [module, response] = await Promise.all([
+        const [module, file] = await Promise.all([
           import("epubjs"),
-          fetch(ebookFileUrl(book), { signal: aborter.signal }),
+          fetch(ebookFileUrl(book), { signal: aborter.signal }).then((response) => {
+            if (!response.ok) throw new Error("EPUB download failed");
+            return response.arrayBuffer();
+          }),
         ]);
-        if (!response.ok) throw new Error("EPUB download failed");
-        const file = await response.arrayBuffer();
         if (cancelled) return;
         const createBook = typeof module.default === "function" ? module.default : module.default.default;
         epub = createBook();

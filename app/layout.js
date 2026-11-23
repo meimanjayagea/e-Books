@@ -2,6 +2,7 @@ import "@fontsource-variable/dm-sans";
 import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
+import { ebookOrigin } from "../lib/github-uploads";
 
 export const metadata = {
   title: { default: "Ruang Baca · Perpustakaan Digital", template: "%s · Ruang Baca" },
@@ -11,6 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="id">
+      <head><link rel="preconnect" href={ebookOrigin} crossOrigin="anonymous" /></head>
       <body>{children}</body>
     </html>
   );

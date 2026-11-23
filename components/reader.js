@@ -124,6 +124,7 @@ export default function Reader({ book }) {
   const { saved } = useReadingState();
   const [appearance, setAppearance] = useState(initialAppearance);
   const [position, setPosition] = useState(null);
+  const [firstPdfPageReady, setFirstPdfPageReady] = useState(false);
   const [outline, setOutline] = useState(null);
   const [failure, setFailure] = useState("");
   const [notice, setNotice] = useState("");
@@ -144,10 +145,11 @@ export default function Reader({ book }) {
     saveProgress(book.id, nextPosition);
   }, [book.id]);
 
+  const onPdfPageReady = useCallback(() => setFirstPdfPageReady(true), []);
   const getInitialPosition = useCallback(() => getProgress(book.id), [book.id]);
   const epubAppearance = useMemo(() => ({ ...appearance, spread }), [appearance, spread]);
   const source = usePdfReader(book, { onPosition, onError: setFailure, onOutline: setOutline }, {
-    position, spread, controls, getInitialPosition,
+    position, spread, controls, getInitialPosition, outlineOpen: sidebar,
   });
 
   useEffect(() => {
@@ -203,6 +205,7 @@ export default function Reader({ book }) {
 
   return (
     <div className={`reader-shell${appearance.dark ? " dark-reader" : ""}`}>
+      <link rel="preload" href={ebookFileUrl(book)} as="fetch" crossOrigin="anonymous" />
       <header className="reader-header">
         <Link className="reader-back" href="/" aria-label="Kembali ke koleksi"><ArrowLeft size={19} /><span>Koleksi</span></Link>
         <div className="reader-book-title">
@@ -227,10 +230,10 @@ export default function Reader({ book }) {
         />
         <main className={`reader-stage${pdf ? " pdf-stage" : " epub-stage"}`} aria-label="Halaman buku" ref={canvasArea}>
           {pdf
-            ? source && !failure && <PdfPages source={source} page={position?.page ?? 1} spread={spread} width={pageWidth} onError={setFailure} scrollArea={canvasArea} />
+            ? source && !failure && <PdfPages source={source} page={position?.page ?? 1} spread={spread} width={pageWidth} onError={setFailure} onPageReady={onPdfPageReady} scrollArea={canvasArea} />
             : !failure && <EpubReader book={book} controls={controls} appearance={epubAppearance} getInitialPosition={getInitialPosition}
                 onPosition={onPosition} onOutline={setOutline} onError={setFailure} onKeyDown={handleKeys} />}
-          {!position && !failure && <div className="reader-message" role="status"><LoaderCircle className="loading-icon" size={28} /> Memuat ebook…</div>}
+          {!(pdf ? firstPdfPageReady : position) && !failure && <div className="reader-message" role="status"><LoaderCircle className="loading-icon" size={28} /> Memuat ebook…</div>}
           {failure && (
             <div className="reader-message" role="alert">
               <CircleAlert size={27} />
