@@ -1,0 +1,281 @@
+[
+  {
+    "id": "agile-software-development",
+    "title": "Agile Software Development",
+    "author": "Robert C. Martin",
+    "category": "agile",
+    "description": "Prinsip dan praktik Agile untuk membangun perangkat lunak yang mudah diubah.",
+    "file": "Agile Software Development.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "clean-architecture",
+    "title": "Clean Architecture",
+    "author": "Robert C. Martin",
+    "category": "architecture",
+    "description": "Prinsip arsitektur untuk menjaga aturan bisnis tetap terpisah dari detail implementasi.",
+    "file": "Clean Architecture A Craftsman's Guide to - Robert C. Martin.epub",
+    "format": "epub"
+  },
+  {
+    "id": "clean-code-collection",
+    "title": "Clean Code Collection",
+    "author": "Robert C. Martin",
+    "category": "quality",
+    "description": "Kumpulan pembahasan tentang kode yang mudah dibaca dan praktik profesional pengembang.",
+    "file": "Clean Code Collection - Robert C. Martin.epub",
+    "format": "epub"
+  },
+  {
+    "id": "dependency-injection",
+    "title": "Dependency Injection",
+    "author": "Steven van Deursen & Mark Seemann",
+    "category": "architecture",
+    "description": "Prinsip dan pola untuk mengelola dependensi dalam aplikasi.",
+    "file": "Dependency Injection - Principles Practices and Patterns - Steven van Deursen.epub",
+    "format": "epub"
+  },
+  {
+    "id": "design-patterns",
+    "title": "Design Patterns",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides",
+    "category": "design",
+    "description": "Katalog pola desain klasik untuk perangkat lunak berorientasi objek.",
+    "file": "Design-patterns-elements-of-reusable-object-oriented-software-Erich-Gamma-Richard-Helm.epub",
+    "format": "epub"
+  },
+  {
+    "id": "designing-data-intensive-applications",
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "category": "data",
+    "description": "Selami prinsip di balik sistem data yang andal, skalabel, dan mudah dipelihara.",
+    "file": "Designing Data Intensive Applications.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "domain-driven-design",
+    "title": "Domain-Driven Design",
+    "author": "Eric Evans",
+    "category": "modeling",
+    "description": "Membangun model dan bahasa bersama yang mencerminkan kebutuhan domain bisnis.",
+    "file": "Domain Driven Design Tackling Complexity in the Heart of Software - Eric Evans.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "extreme-programming",
+    "title": "Extreme Programming Explained",
+    "author": "Kent Beck & Cynthia Andres",
+    "category": "agile",
+    "description": "Nilai dan praktik Extreme Programming untuk merespons perubahan.",
+    "file": "Extreme-programming-explained-embrace-change-2.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "five-lines-of-code",
+    "title": "Five Lines of Code",
+    "author": "Christian Clausen",
+    "category": "quality",
+    "description": "Langkah-langkah praktis untuk menyederhanakan kode melalui refactoring.",
+    "file": "Five Lines of Code_ How and when to refactor.epub",
+    "format": "epub"
+  },
+  {
+    "id": "growing-object-oriented-software",
+    "title": "Growing Object-Oriented Software, Guided by Tests",
+    "author": "Steve Freeman & Nat Pryce",
+    "category": "testing",
+    "description": "Contoh pengembangan aplikasi berorientasi objek yang dipandu oleh tes.",
+    "file": "Growing Object-Oriented Software, Guided by Tests.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "design-patterns-with-swift",
+    "title": "Hands-On Design Patterns with Swift",
+    "author": "Florent Vilmart, Giordano Scalzo & Sergio De Simone",
+    "category": "design",
+    "description": "Contoh penerapan pola desain umum dalam Swift.",
+    "file": "Hands-On Design Patterns with Swift.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "head-first-design-patterns-2",
+    "title": "Head First Design Patterns (Edisi 2)",
+    "author": "Eric Freeman & Elisabeth Robson",
+    "category": "design",
+    "description": "Pengantar visual tentang pola desain yang dapat diterapkan pada kode sehari-hari.",
+    "file": "Head_First_Design_Patterns_Building_Extensible_and_Maintainable_Object-Oriented_Software_2nd_Edition.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "object-oriented-software-engineering",
+    "title": "Object-Oriented Software Engineering",
+    "author": "Ivar Jacobson dkk.",
+    "category": "modeling",
+    "description": "Pendekatan rekayasa perangkat lunak berorientasi objek yang digerakkan oleh use case.",
+    "file": "Ivar_Jacobson_Object_oriented_software_engineering_a_use_case_driven_approach(1992).pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "object-oriented-software-construction",
+    "title": "Object-Oriented Software Construction",
+    "author": "Bertrand Meyer",
+    "category": "design",
+    "description": "Fondasi desain berorientasi objek, modularitas, dan design by contract.",
+    "file": "Object Oriented Software Construction-Meyer.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "object-oriented-analysis-and-design",
+    "title": "Object-Oriented Analysis and Design with Applications",
+    "author": "Grady Booch dkk.",
+    "category": "design",
+    "description": "Teknik analisis dan pemodelan untuk sistem berorientasi objek.",
+    "file": "Object.Oriented.Analysis.and.Design.with.Applications.3rd.Edition.by.Booch.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "patterns-of-enterprise-architecture",
+    "title": "Patterns of Enterprise Application Architecture",
+    "author": "Martin Fowler",
+    "category": "architecture",
+    "description": "Pola yang sering muncul saat merancang aplikasi bisnis dan lapisan datanya.",
+    "file": "Patterns of Enterprise Application Architecture - Martin Fowler.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "refactoring",
+    "title": "Refactoring",
+    "author": "Martin Fowler",
+    "category": "quality",
+    "description": "Teknik mengubah struktur kode sambil mempertahankan perilakunya.",
+    "file": "Refactoring Improving the Design of Existing Code.epub",
+    "format": "epub"
+  },
+  {
+    "id": "building-microservices",
+    "title": "Building Microservices",
+    "author": "Sam Newman",
+    "category": "data",
+    "description": "Prinsip membangun, memisahkan, dan mengoperasikan layanan yang independen.",
+    "file": "Sam Newman-Building Microservices-O'Reilly Media (2015).pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "software-design-decoded",
+    "title": "Software Design Decoded",
+    "author": "Marian Petre & André van der Hoek",
+    "category": "foundations",
+    "description": "Cara desainer perangkat lunak berpengalaman berpikir dan bekerja.",
+    "file": "Software-design-decoded-66-ways-experts-think.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "software-engineering",
+    "title": "Software Engineering: A Practitioner's Approach",
+    "author": "Roger S. Pressman & Bruce R. Maxim",
+    "category": "foundations",
+    "description": "Gambaran praktik rekayasa perangkat lunak dari kebutuhan sampai pemeliharaan.",
+    "file": "Software-engineering-a-practitioners-approach.epub",
+    "format": "epub"
+  },
+  {
+    "id": "test-driven-development",
+    "title": "Test-Driven Development: By Example",
+    "author": "Kent Beck",
+    "category": "testing",
+    "description": "Belajar siklus menulis tes, membuatnya lulus, lalu merapikan kode.",
+    "file": "Test-Driven Development By Example (Kent Beck).pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "the-pragmatic-programmer",
+    "title": "The Pragmatic Programmer",
+    "author": "David Thomas & Andrew Hunt",
+    "category": "foundations",
+    "description": "Kiat berpikir dan bekerja sebagai pengembang perangkat lunak.",
+    "file": "The Pragmatic Programmer Your Journey to Mastery, 20th Anniversary Edition by Andrew Hunt David Hurst Thomas.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "software-architect-elevator",
+    "title": "The Software Architect Elevator",
+    "author": "Gregor Hohpe",
+    "category": "architecture",
+    "description": "Peran arsitek dalam menghubungkan keputusan teknis dengan tujuan organisasi.",
+    "file": "The-Software-Architect-Elevator-Gregor Hohpe.epub",
+    "format": "epub"
+  },
+  {
+    "id": "user-stories-applied",
+    "title": "User Stories Applied",
+    "author": "Mike Cohn",
+    "category": "modeling",
+    "description": "Menulis, memperkirakan, dan memprioritaskan user stories bersama tim.",
+    "file": "User-Stories-Applied-Mike-Cohn.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "we-programmers",
+    "title": "We Programmers",
+    "author": "Robert C. Martin",
+    "category": "foundations",
+    "description": "Sejarah pemrograman dari pelopor komputasi hingga era AI.",
+    "file": "We_Programmers_A_Chronicle_of_Coders_from_Ada_to_AI.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "writing-effective-use-cases",
+    "title": "Writing Effective Use Cases",
+    "author": "Alistair Cockburn",
+    "category": "modeling",
+    "description": "Cara menangkap kebutuhan pengguna melalui use case yang jelas.",
+    "file": "Writing Effective Use Cases.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "head-first-design-patterns",
+    "title": "Head First Design Patterns",
+    "author": "Eric Freeman, Elisabeth Freeman, Kathy Sierra & Bert Bates",
+    "category": "design",
+    "description": "Edisi awal pengantar pola desain dengan ilustrasi dan latihan.",
+    "file": "[O`Reilly. Head First] - Head First Design Patterns - [Freeman].pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "structure-and-interpretation",
+    "title": "Structure and Interpretation of Computer Programs",
+    "author": "Harold Abelson & Gerald Jay Sussman",
+    "category": "foundations",
+    "description": "Konsep abstraksi dan pemrograman melalui contoh dalam Scheme.",
+    "file": "sicp.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "software-architecture-in-practice",
+    "title": "Software Architecture in Practice",
+    "author": "Len Bass, Paul Clements & Rick Kazman",
+    "category": "architecture",
+    "description": "Merancang dan mengevaluasi arsitektur berdasarkan kebutuhan kualitas sistem.",
+    "file": "software-architecture-in-practice-4.pdf",
+    "format": "pdf"
+  },
+  {
+    "id": "essentials-of-modern-software-engineering",
+    "title": "The Essentials of Modern Software Engineering",
+    "author": "Ivar Jacobson dkk.",
+    "category": "foundations",
+    "description": "Kerangka untuk memahami, memilih, dan menggabungkan praktik pengembangan.",
+    "file": "the-essentials-of-modern-software-engineering-free-the-practices-from-the-method-prisons.epub",
+    "format": "epub"
+  },
+  {
+    "id": "use-case-2",
+    "title": "Use-Case 2.0",
+    "author": "Ivar Jacobson, Ian Spence & Brian Kerr",
+    "category": "modeling",
+    "description": "Panduan membagi use case menjadi bagian yang dapat dikerjakan bertahap.",
+    "file": "use-case_2.0_final_rev3.pdf",
+    "format": "pdf"
+  }
+]
