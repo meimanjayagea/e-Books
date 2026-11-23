@@ -6,9 +6,10 @@ import {
   ArrowLeft, BookOpen, Bookmark, ChevronLeft, ChevronRight, CircleAlert, Columns2,
   Download, List, LoaderCircle, Minus, Moon, Plus, Sun, X,
 } from "lucide-react";
-import { categories, coverUrl } from "../lib/catalog";
+import { categories } from "../lib/catalog";
 import { ebookFileUrl } from "../lib/ebook-file";
 import { getProgress, saveProgress, toggleSaved, useReadingState } from "../lib/reading-state";
+import BookCover from "./book-cover";
 import EpubReader from "./epub-reader";
 import { PdfPages, usePdfReader } from "./pdf-reader";
 
@@ -48,11 +49,11 @@ function SidePanel({ book, category, outline, position, show, close, go }) {
     <aside className={`reader-sidebar${show ? " open" : ""}`} aria-label="Informasi dan daftar isi">
       <div className="sidebar-mobile-top"><span>Informasi buku</span><Tool label="Tutup daftar isi" onClick={close}><X size={20} /></Tool></div>
       <div className="sidebar-book">
-        <img src={coverUrl(book)} alt="" />
+        <div className="sidebar-cover"><BookCover book={book} /></div>
         <div>
           <span>{category.label}</span>
           <strong>{book.title}</strong>
-          <p>{book.author}</p>
+          {book.author && <p>{book.author}</p>}
         </div>
       </div>
       <div className="sidebar-outline">

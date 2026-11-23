@@ -16,7 +16,7 @@
   "homepage": "https://github.com/meimanjayagea/e-Books#readme",
   "private": true,
   "dependencies": {
-    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/dm-sans": "^5.3.0",
     "@fontsource/instrument-serif": "^5.3.0",
     "epubjs": "^0.3.93",
     "lucide-react": "^1.78.0",

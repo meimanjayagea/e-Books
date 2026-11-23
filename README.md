@@ -15,6 +15,12 @@ Buka `http://localhost:3000` di browser. Jalankan `npm run build` untuk menghasi
 
 Cari judul atau penulis, pilih kategori, lalu klik sampul untuk membaca. Pembaca mendukung tombol panah kiri dan kanan, daftar isi jika tersedia, zoom atau ukuran teks, dan mode gelap. Tampilan dua halaman tersedia di layar lebar. Buku tersimpan dan posisi baca disimpan di browser yang digunakan.
 
+## Mengunggah PDF ke GitHub
+
+Pilih **Unggah PDF**, pilih file PDF hingga 50 MB, lalu isi judul dan fine-grained personal access token GitHub. Buat token dengan akses hanya ke repositori `meimanjayagea/e-Books` dan izin **Contents: Read and write**.
+
+Aplikasi mengirim token dan file langsung dari browser ke GitHub. Unggahan membuat commit baru di branch `master` pada folder `uploads/`, sehingga PDF tersedia di repositori publik dan di kategori **Unggahan**. Gunakan judul yang berbeda jika file dengan judul yang sama sudah ada.
+
 ## Katalog e-Books
 
 Koleksi 31 ebook ini dikelompokkan berdasarkan topik utama. Pembaca mengambil file PDF dan EPUB langsung dari revisi yang tercantum di `lib/ebook-file.js`. Daftar di bawah ini menaut ke file dalam repositori [e-Books](https://github.com/meimanjayagea/e-Books/tree/d5594cea78b9af2768550bba70cebe67e7c1fcda).

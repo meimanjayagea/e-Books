@@ -33,6 +33,7 @@ export function usePdfReader(book, callbacks, navigation) {
         engine.GlobalWorkerOptions.workerSrc = `${pdfAssetPath}pdf.worker.min.mjs`;
         loading = engine.getDocument({
           url: fileUrl,
+          isEvalSupported: false,
           cMapUrl: `${pdfAssetPath}cmaps/`,
           cMapPacked: true,
           standardFontDataUrl: `${pdfAssetPath}standard_fonts/`,
