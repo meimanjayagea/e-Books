@@ -61,7 +61,7 @@ export default function UploadDialog({ open, onClose, onUploaded }) {
     setBusy(true);
     setError("");
     setPercentage(null);
-    const password = passwordField.current.value;
+    const password = passwordField.current.value.trim();
     passwordField.current.value = "";
     try {
       const book = await uploadEbook({
