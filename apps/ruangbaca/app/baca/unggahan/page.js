@@ -16,7 +16,7 @@ function UploadedReader() {
       <section className="empty-state">
         <BookOpen size={24} />
         <h1>Buku tidak ditemukan</h1>
-        <p>Pilih PDF dari koleksi unggahan untuk mulai membaca.</p>
+        <p>Pilih ebook dari koleksi unggahan untuk mulai membaca.</p>
         <Link className="primary-button" href="/">Kembali ke koleksi</Link>
       </section>
     </main>

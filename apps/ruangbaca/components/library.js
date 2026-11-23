@@ -173,7 +173,7 @@ export default function Library() {
             <button type="button" aria-pressed={view === "all"} onClick={() => changeView("all")}><LibraryBig size={18} /> Koleksi</button>
             <button type="button" aria-pressed={view === "saved"} onClick={() => changeView("saved")}><Bookmark size={18} /> Tersimpan</button>
           </nav>
-          <button type="button" className="primary-button upload-trigger" onClick={() => setUploadOpen(true)}><CloudUpload size={19} /> Unggah PDF</button>
+          <button type="button" className="primary-button upload-trigger" onClick={() => setUploadOpen(true)}><CloudUpload size={19} /> Unggah ebook</button>
         </div>
       </header>
       <main className="page-width library-main">
@@ -220,12 +220,12 @@ export default function Library() {
           ) : !uploadStatusVisible && (
             <div className="empty-state">
               <span className="empty-symbol">{uploadsEmpty ? <CloudUpload size={25} /> : savedEmpty ? <Bookmark size={25} /> : <Search size={25} />}</span>
-              <h3>{uploadsEmpty ? "Belum ada PDF yang diunggah" : savedEmpty ? "Belum ada buku tersimpan" : "Ebook tidak ditemukan"}</h3>
-              <p>{uploadsEmpty ? "Tambahkan PDF untuk menampilkannya di koleksi." : savedEmpty
+              <h3>{uploadsEmpty ? "Belum ada ebook yang diunggah" : savedEmpty ? "Belum ada buku tersimpan" : "Ebook tidak ditemukan"}</h3>
+              <p>{uploadsEmpty ? "Tambahkan PDF atau EPUB untuk menampilkannya di koleksi." : savedEmpty
                 ? "Tekan ikon penanda pada sampul untuk menyimpan buku."
                 : "Coba kata kunci lain atau pilih kategori berbeda."}</p>
               <button type="button" className="secondary-button" onClick={uploadsEmpty ? () => setUploadOpen(true) : () => changeView(savedEmpty ? "all" : view)}>
-                {uploadsEmpty ? "Unggah PDF" : savedEmpty ? "Jelajahi koleksi" : "Reset filter"}
+                {uploadsEmpty ? "Unggah ebook" : savedEmpty ? "Jelajahi koleksi" : "Reset filter"}
               </button>
             </div>
           )}

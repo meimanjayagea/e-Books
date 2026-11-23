@@ -2,28 +2,39 @@
 
 RuangBaca adalah perpustakaan digital untuk koleksi PDF dan EPUB dalam repositori ini. Aplikasi dibuat dengan Next.js dan JavaScript.
 
-## Menjalankan aplikasi
+## Struktur repositori
 
-Gunakan Node.js 22.13 atau lebih baru. Jalankan perintah berikut dari direktori repositori.
+| Direktori | Isi |
+| --- | --- |
+| `apps/ruangbaca/` | Aplikasi Next.js dan konfigurasi Vercel |
+| `ebook/pdf/` | Koleksi dan unggahan PDF |
+| `ebook/epup/` | Koleksi dan unggahan EPUB dengan ekstensi `.epub` |
+
+Untuk pengembangan lokal, gunakan Node.js 22.13 atau lebih baru.
 
 ```bash
+cd apps/ruangbaca
 npm ci
 npm run dev
 ```
 
-Buka `http://localhost:3000` di browser. Jalankan `npm run build` untuk menghasilkan situs statis di `out/` yang siap dipublikasikan melalui Sites.
+## Vercel
 
-Cari judul atau penulis, pilih kategori, lalu klik sampul untuk membaca. Pembaca mendukung tombol panah kiri dan kanan, daftar isi jika tersedia, zoom atau ukuran teks, dan mode gelap. Tampilan dua halaman tersedia di layar lebar. Buku tersimpan dan posisi baca disimpan di browser yang digunakan.
+Hubungkan repositori ini ke Vercel dengan **Root Directory** `apps/ruangbaca`, framework **Next.js**, dan **Production Branch** `master`. Aktifkan **Skip deployment when there are no changes to the root directory or its dependencies**. Konfigurasi Ignored Build Step juga membandingkan revisi deployment sebelumnya dengan commit baru pada direktori aplikasi. Commit yang hanya mengubah koleksi ebook tidak perlu menjalankan build.
 
-## Mengunggah PDF ke GitHub
+Tambahkan environment variable server-side berikut untuk Production.
 
-Pilih **Unggah PDF**, pilih file PDF hingga 50 MB, lalu isi judul dan fine-grained personal access token GitHub. Buat token dengan akses hanya ke repositori `meimanjayagea/e-Books` dan izin **Contents: Read and write**.
+| Variable | Nilai |
+| --- | --- |
+| `GITHUB_TOKEN` | Fine-grained PAT dengan akses hanya ke repositori `meimanjayagea/e-Books` dan izin **Contents: Read and write** |
+| `EBOOK_UPLOAD_PASSWORD` | Kode admin acak dan kuat untuk mengotorisasi unggahan |
+| `BLOB_READ_WRITE_TOKEN` | Token dari private Vercel Blob store yang terhubung ke proyek |
 
-Aplikasi mengirim token dan file langsung dari browser ke GitHub. Unggahan membuat commit baru di branch `master` pada folder `ebook/pdf/`, sehingga PDF tersedia di repositori publik dan di kategori **Unggahan**. Gunakan judul yang berbeda jika file dengan judul yang sama sudah ada.
+Deploy ulang setelah mengubah environment variable. Katalog publik bisa dibaca tanpa kredensial unggah. Unggah PDF atau EPUB hingga 50 MiB menggunakan kode admin. File transit di private Blob, lalu aplikasi membuat commit ke `master` dan menghapus file transit setelah diproses. File transit yang ditinggalkan kedaluwarsa otomatis. File yang sudah di-commit tersedia di repositori publik.
 
 ## Katalog e-Books
 
-Koleksi 31 ebook ini dikelompokkan berdasarkan topik utama. File PDF disimpan di `ebook/pdf/` dan file EPUB di `ebook/epup/` dengan ekstensi `.epub`. Pembaca mengambil file PDF dan EPUB langsung dari revisi yang tercantum di `lib/ebook-file.js`. Daftar di bawah ini menaut ke file dalam repositori [e-Books](https://github.com/meimanjayagea/e-Books/tree/c9dbf63594ff50c5ccba781e19100e08d7939843).
+Koleksi 31 ebook ini dikelompokkan berdasarkan topik utama. File PDF disimpan di `ebook/pdf/` dan file EPUB di `ebook/epup/` dengan ekstensi `.epub`. Pembaca mengambil file PDF dan EPUB langsung dari revisi yang tercantum di `apps/ruangbaca/lib/ebook-source.js`. Daftar di bawah ini menaut ke file dalam repositori [e-Books](https://github.com/meimanjayagea/e-Books/tree/c9dbf63594ff50c5ccba781e19100e08d7939843).
 
 ### Arsitektur Perangkat Lunak
 
