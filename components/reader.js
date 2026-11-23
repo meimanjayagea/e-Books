@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { categories } from "../lib/catalog";
 import { ebookFileUrl } from "../lib/ebook-file";
+import { canLoadPdfByRange } from "../lib/pdf-range";
 import { getProgress, saveProgress, toggleSaved, useReadingState } from "../lib/reading-state";
 import BookCover from "./book-cover";
 import EpubReader from "./epub-reader";
@@ -205,7 +206,7 @@ export default function Reader({ book }) {
 
   return (
     <div className={`reader-shell${appearance.dark ? " dark-reader" : ""}`}>
-      <link rel="preload" href={ebookFileUrl(book)} as="fetch" crossOrigin="anonymous" />
+      {!canLoadPdfByRange(book) && <link rel="preload" href={ebookFileUrl(book)} as="fetch" crossOrigin="anonymous" />}
       <header className="reader-header">
         <Link className="reader-back" href="/" aria-label="Kembali ke koleksi"><ArrowLeft size={19} /><span>Koleksi</span></Link>
         <div className="reader-book-title">
@@ -233,7 +234,7 @@ export default function Reader({ book }) {
             ? source && !failure && <PdfPages source={source} page={position?.page ?? 1} spread={spread} width={pageWidth} onError={setFailure} onPageReady={onPdfPageReady} scrollArea={canvasArea} />
             : !failure && <EpubReader book={book} controls={controls} appearance={epubAppearance} getInitialPosition={getInitialPosition}
                 onPosition={onPosition} onOutline={setOutline} onError={setFailure} onKeyDown={handleKeys} />}
-          {!(pdf ? firstPdfPageReady : position) && !failure && <div className="reader-message" role="status"><LoaderCircle className="loading-icon" size={28} /> Memuat ebook…</div>}
+          {!(pdf ? source && firstPdfPageReady : position) && !failure && <div className="reader-message" role="status"><LoaderCircle className="loading-icon" size={28} /> Memuat ebook…</div>}
           {failure && (
             <div className="reader-message" role="alert">
               <CircleAlert size={27} />

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ebookFileUrl } from "../lib/ebook-file";
+import { canLoadPdfByRange, pdfRangeOptions, preparePdfRange } from "../lib/pdf-range";
 
 const pdfAssetPath = "/pdf-assets/";
 
@@ -20,46 +21,72 @@ export function usePdfReader(book, callbacks, navigation) {
   const { controls, position, spread, getInitialPosition, outlineOpen } = navigation;
   const activePage = position?.page ?? 1;
   const fileUrl = ebookFileUrl(book);
+  const fileSize = canLoadPdfByRange(book) ? book.fileSize : 0;
 
   useEffect(() => {
     if (book.format !== "pdf") return;
     let loading;
+    let fallbackStarted = false;
     let cancelled = false;
+    const rangeController = new AbortController();
+
+    async function loadPdf(engine, input, rangeSignal) {
+      if (cancelled) return;
+      loading = engine.getDocument({
+        ...input,
+        isEvalSupported: false,
+        cMapUrl: `${pdfAssetPath}cmaps/`,
+        cMapPacked: true,
+        standardFontDataUrl: `${pdfAssetPath}standard_fonts/`,
+        wasmUrl: `${pdfAssetPath}wasm/`,
+        iccUrl: `${pdfAssetPath}iccs/`,
+      });
+      const pdf = await loading.promise;
+      if (cancelled || rangeSignal?.aborted) return;
+      const initialPage = Number(getInitialPosition()?.page) || 1;
+      const page = Math.max(1, Math.min(pdf.numPages, initialPage));
+      setSource({ pdf, engine, rangeSignal });
+      onPosition({ page, total: pdf.numPages, percent: page / pdf.numPages * 100 });
+    }
+
+    function reportFailure(error) {
+      if (cancelled) return;
+      console.error(error);
+      onError("PDF tidak bisa dibuka.");
+    }
+
+    async function loadFullPdf(engine) {
+      if (cancelled || fallbackStarted) return;
+      fallbackStarted = true;
+      rangeController.abort();
+      setSource(null);
+      await loading?.destroy().catch(() => {});
+      await loadPdf(engine, { url: fileUrl }).catch(reportFailure);
+    }
 
     async function openPdf() {
-      try {
-        const engine = await import("pdfjs-dist");
-        if (cancelled) return;
-        engine.GlobalWorkerOptions.workerSrc = `${pdfAssetPath}pdf.worker.min.mjs`;
-        loading = engine.getDocument({
-          url: fileUrl,
-          isEvalSupported: false,
-          cMapUrl: `${pdfAssetPath}cmaps/`,
-          cMapPacked: true,
-          standardFontDataUrl: `${pdfAssetPath}standard_fonts/`,
-          wasmUrl: `${pdfAssetPath}wasm/`,
-          iccUrl: `${pdfAssetPath}iccs/`,
-        });
-        const pdf = await loading.promise;
-        if (cancelled) return;
-        setSource({ pdf, engine });
-        const initialPage = Number(getInitialPosition()?.page) || 1;
-        const page = Math.max(1, Math.min(pdf.numPages, initialPage));
-        onPosition({ page, total: pdf.numPages, percent: page / pdf.numPages * 100 });
-      } catch (error) {
-        if (!cancelled) {
-          console.error(error);
-          onError("PDF tidak bisa dibuka.");
-        }
+      const [engine, initial] = await Promise.all([
+        import("pdfjs-dist"),
+        fileSize ? preparePdfRange(fileUrl, rangeController.signal).catch(() => null) : null,
+      ]);
+      if (cancelled) return;
+      engine.GlobalWorkerOptions.workerSrc = `${pdfAssetPath}pdf.worker.min.mjs`;
+      if (initial?.firstChunk) {
+        const fallback = () => loadFullPdf(engine);
+        const options = pdfRangeOptions(engine, fileUrl, fileSize, initial.firstChunk, rangeController, fallback);
+        await loadPdf(engine, options, rangeController.signal).catch(fallback);
+      } else {
+        await loadPdf(engine, initial?.data ? { data: initial.data } : { url: fileUrl });
       }
     }
 
-    openPdf();
+    openPdf().catch(reportFailure);
     return () => {
       cancelled = true;
+      rangeController.abort();
       loading?.destroy().catch(() => {});
     };
-  }, [book.format, fileUrl, getInitialPosition, onError, onPosition]);
+  }, [book.format, fileUrl, fileSize, getInitialPosition, onError, onPosition]);
 
   useEffect(() => {
     if (!source || !outlineOpen) return;
@@ -143,7 +170,7 @@ function PdfPage({ source, pageNumber, width, onError, onReady }) {
         });
         await textLayer.render();
       } catch (error) {
-        if (cancelled || error.name === "RenderingCancelledException" || error.name === "AbortException") return;
+        if (cancelled || source.rangeSignal?.aborted || error.name === "RenderingCancelledException" || error.name === "AbortException") return;
         console.error(error);
         if (!textLayer) onError(`Halaman ${pageNumber} tidak bisa ditampilkan.`);
       }
